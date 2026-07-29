@@ -1,0 +1,43 @@
+Conventions,G,BADC-CSV,1
+title,G,Midas Open: Station capability information for uk-hourly-weather-obs
+comments,G,This file documents the range of identifier types associated with a unique station in this version of the dataset
+comments,G,A station may be associated with different identifiers relating to different reporting roles
+comments,G,The MIDAS src_id is used as a consistent and unique identifier for a station throughout MIDAS-open datasets
+source,G,Met Office MIDAS database
+creator,G,Met Office
+activity,G,Met Office MIDAS Open: UK Land Surface Stations Data
+feature_type,G,point collection
+collection_name,G,midas-open
+collection_version_number,G,dataset-version-202507
+history,G,Created 2025-06-24
+last_revised_date,G,2025-06-24
+observation_station,G,rothamsted
+historic_county_name,G,hertfordshire
+authority,G,Met Office
+authority_comments,G,The authority is the latest organisation which owned the station
+authority_comments,G,Closed stations without an authority listed have the authority set to NA
+src_id,G,00471
+location,G,51.807,-0.36
+height,G,128,m
+date_valid,G,1916-01-01 00:00:00,2024-12-31 23:59:59
+coordinate_variable,id,x
+long_name,id,The identifier associated with a particular report type for this station,1
+type,id,int
+comments,id,This is the numerical identifier
+long_name,id_type,The identifier type associated with a particular reporting capability for this station,1
+type,id_type,char
+comments,id_type,This identifies the group of reporting types (or capabilities) this identifier belongs to
+long_name,met_domain_name,message type,1
+type,met_domain_name,char
+comments,met_domain_name,For more information on message types see the MIDAS documentation
+long_name,first_year,first year of data associated with this id/id_type in this version of this dataset,year
+type,first_year,float
+long_name,last_year,last year of data associated with this id/id_type in this version of this dataset,year
+type,last_year,float
+data
+id,id_type,met_domain_name,first_year,last_year
+03680,WMO,SYNOP,2013,2024
+3537,DCNN,HSUN3445,1980,2003
+3537,DCNN,DLY3208,1916,2003
+3537,DCNN,AWSHRLY,1999,2013
+end data

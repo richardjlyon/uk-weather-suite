@@ -1,0 +1,290 @@
+Conventions,G,BADC-CSV,1
+title,G,uk-hourly-weather-obs
+source,G,Met Office MIDAS database
+creator,G,Met Office
+activity,G,Met Office MIDAS Open: UK Land Surface Stations Data
+feature_type,G,point series
+collection_name,G,midas-open
+collection_version_number,G,dataset-version-202507
+history,G,Created 2025-06-24
+last_revised_date,G,2025-06-24
+observation_station,G,almondsbury
+historic_county_name,G,avon
+authority,G,Met Office
+authority_comments,G,The authority is the latest organisation which owned the station
+authority_comments,G,Closed stations without an authority listed have the authority set to NA
+midas_station_id,G,62122
+location,G,51.551,-2.559
+height,G,75,m
+date_valid,G,2024-01-01 00:00:00,2024-12-31 23:59:59
+midas_qc_version_number,G,1
+comments,G,The midas_qc_version_number indicates if the data are original received message (0) or current best version (1)
+comments,G,This file contains station observations
+comments,G,missing values are identified with the missing data flag
+missing_value,G,NA
+coordinate_variable,ob_time,t
+long_name,ob_time,Date and time of observation,s
+type,ob_time,char
+comments,ob_time,Date and time (YYYY-MM-DD HH:MM:SS) of the observation
+long_name,id,station identifier,1
+type,id,char
+comments,id,a station may have more than one id assigned to it designated by the id_type
+long_name,id_type,identifier type,1
+type,id_type,char
+comments,id_type,a station may have more than one id assigned to it defined by id_type
+long_name,met_domain_name,message type,1
+type,met_domain_name,char
+comments,met_domain_name,message type (see MIDAS documentation)
+long_name,version_num,midas qc version number,1
+type,version_num,int
+comments,version_num,The midas_qc_version_number indicates if the data are original received message (0) or current best version (1)
+long_name,src_id,unique source identifier or station site number,1
+type,src_id,int
+comments,src_id,unique source identifier or station site number
+long_name,rec_st_ind,state indicator for the record,1
+type,rec_st_ind,int
+comments,rec_st_ind,state indicator for the current stage in the life of the record (see MIDAS documentation)
+long_name,wind_speed_unit_id,Wind speed unit code,1
+type,wind_speed_unit_id,char
+comments,wind_speed_unit_id,Code to describe the origin of the wind speed units.
+comments,wind_speed_unit_id,"0=wind speed estimated,metres per second"
+comments,wind_speed_unit_id,"1=wind speed from anemometer,metres per second"
+comments,wind_speed_unit_id,"3=wind speed estimated,knots"
+comments,wind_speed_unit_id,"4=wind speed from anemometer,knots"
+long_name,src_opr_type,source operation type code,1
+type,src_opr_type,char
+comments,src_opr_type,source operation type code
+long_name,wind_direction,wind direction,deg true
+type,wind_direction,int
+comments,wind_direction,wind direction in true degrees
+long_name,wind_speed,wind speed,knots
+type,wind_speed,float
+comments,wind_speed,wind speed
+long_name,prst_wx_id,present weather code (see documentation),1
+type,prst_wx_id,int
+comments,prst_wx_id,present weather code (see documentation)
+long_name,past_wx_id_1,past weather code #1 (see documentation),1
+type,past_wx_id_1,int
+comments,past_wx_id_1,past weather code #1 (see documentation)
+long_name,past_wx_id_2,past weather code #2 (see documentation),1
+type,past_wx_id_2,int
+comments,past_wx_id_2,past weather code #2 (see documentation)
+long_name,cld_ttl_amt_id,Total cloud amount code,Oktas
+type,cld_ttl_amt_id,int
+long_name,low_cld_type_id,low cloud type code (see documentation),1
+type,low_cld_type_id,int
+comments,low_cld_type_id,low cloud type code (see documentation)
+long_name,med_cld_type_id,medium cloud type code (see documentation),1
+type,med_cld_type_id,int
+comments,med_cld_type_id,medium cloud type code (see documentation)
+long_name,hi_cld_type_id,high cloud type code (see documentation),1
+type,hi_cld_type_id,int
+comments,hi_cld_type_id,high cloud type code (see documentation)
+long_name,cld_base_amt_id,cloud base amount code (see documentation),1
+type,cld_base_amt_id,int
+comments,cld_base_amt_id,cloud base amount code (see documentation)
+long_name,cld_base_ht,cloud base height code,decametres
+type,cld_base_ht,int
+comments,cld_base_ht,cloud base height code
+long_name,visibility,visibility,decametres
+type,visibility,int
+comments,visibility,visibility
+long_name,msl_pressure,mean sea level air pressure,hPa
+type,msl_pressure,float
+comments,msl_pressure,mean sea level air pressure
+long_name,cld_amt_id_1,layer cloud amount code #1,1
+type,cld_amt_id_1,char
+comments,cld_amt_id_1,layer cloud amount code #1
+long_name,cloud_type_id_1,cloud type code #1,1
+type,cloud_type_id_1,char
+long_name,cld_base_ht_id_1,cloud base height code #1,decametres
+type,cld_base_ht_id_1,int
+long_name,cld_amt_id_2,layer cloud amount code #2,1
+type,cld_amt_id_2,char
+comments,cld_amt_id_2,layer cloud amount code #2
+long_name,cloud_type_id_2,cloud type code #2,1
+type,cloud_type_id_2,char
+comments,cloud_type_id_2,cloud type code #2
+long_name,cld_base_ht_id_2,cloud base height code #2,decametres
+type,cld_base_ht_id_2,int
+comments,cld_base_ht_id_2,cloud base height code #2
+long_name,cld_amt_id_3,layer cloud amount code #3,1
+type,cld_amt_id_3,char
+comments,cld_amt_id_3,layer cloud amount code #3
+long_name,cloud_type_id_3,cloud type code #3,1
+type,cloud_type_id_3,char
+comments,cloud_type_id_3,cloud type code #3
+long_name,cld_base_ht_id_3,cloud base height code #3,decametres
+type,cld_base_ht_id_3,int
+comments,cld_base_ht_id_3,cloud base height code #3
+long_name,cld_amt_id_4,layer cloud amount code #4,1
+type,cld_amt_id_4,char
+comments,cld_amt_id_4,layer cloud amount code #4
+long_name,cloud_type_id_4,cloud type code #4,1
+type,cloud_type_id_4,char
+comments,cloud_type_id_4,cloud type code #4
+long_name,cld_base_ht_id_4,cloud base height code #4,decametres
+type,cld_base_ht_id_4,int
+comments,cld_base_ht_id_4,cloud base height code #4
+long_name,vert_vsby,vertical visibility,decametres
+type,vert_vsby,int
+comments,vert_vsby,vertical visibility
+long_name,air_temperature,Air temperature,degC
+type,air_temperature,float
+comments,air_temperature,Air temperature
+long_name,dewpoint,Dewpoint temperature,degC
+type,dewpoint,float
+comments,dewpoint,Dewpoint temperature
+long_name,wetb_temp,Wetbulb temperature,degC
+type,wetb_temp,float
+comments,wetb_temp,Wetbulb temperature
+long_name,rltv_hum,Calculated relative humidity,%
+type,rltv_hum,float
+comments,rltv_hum,Calculated relative humidity
+long_name,stn_pres,Station air pressure,hPa
+type,stn_pres,float
+comments,stn_pres,Station air pressure
+long_name,alt_pres,Altimeter pressure,hPa
+type,alt_pres,float
+comments,alt_pres,Altimeter pressure
+long_name,ground_state_id,Ground state code (see documentation),1
+type,ground_state_id,char
+comments,ground_state_id,Ground state code (see documentation)
+long_name,q10mnt_mxgst_spd,10 minute maximum gust speed,knots
+type,q10mnt_mxgst_spd,int
+comments,q10mnt_mxgst_spd,10 minute maximum gust speed
+long_name,cavok_flag,cavok flag,1
+type,cavok_flag,char
+comments,cavok_flag,cavok flag
+long_name,cs_hr_sun_dur,Campbell-stokes hour sunshine duration,hours
+type,cs_hr_sun_dur,float
+comments,cs_hr_sun_dur,Campbell-stokes hour sunshine duration
+long_name,wmo_hr_sun_dur,WMO hour sunshine duration,hours
+type,wmo_hr_sun_dur,float
+comments,wmo_hr_sun_dur,WMO hour sunshine duration
+long_name,snow_depth,Snow depth,cm
+type,snow_depth,int
+comments,snow_depth,Snow depth
+long_name,wind_direction_q,QC code - wind direction,1
+type,wind_direction_q,int
+long_name,wind_speed_q,QC code - wind speed,1
+type,wind_speed_q,int
+long_name,prst_wx_id_q,QC code - present weather,1
+type,prst_wx_id_q,int
+long_name,past_wx_id_1_q,QC code - past weather code #1,1
+type,past_wx_id_1_q,int
+long_name,past_wx_id_2_q,QC code - past weather code #2,1
+type,past_wx_id_2_q,int
+long_name,cld_ttl_amt_id_q,QC code - cloud total amount,1
+type,cld_ttl_amt_id_q,int
+long_name,low_cld_type_id_q,QC code - low cloud type code,1
+type,low_cld_type_id_q,int
+long_name,med_cld_type_id_q,QC code - medium cloud type code,1
+type,med_cld_type_id_q,int
+long_name,hi_cld_type_id_q,QC code - high cloud type code,1
+type,hi_cld_type_id_q,int
+long_name,cld_base_amt_id_q,QC code - cloud base amount,1
+type,cld_base_amt_id_q,int
+long_name,cld_base_ht_q,QC code - cloud base height,1
+type,cld_base_ht_q,int
+long_name,visibility_q,QC code - visibility,1
+type,visibility_q,int
+long_name,msl_pressure_q,QC code - msl pressure,1
+type,msl_pressure_q,int
+long_name,air_temperature_q,QC code - air temperature,1
+type,air_temperature_q,int
+long_name,dewpoint_q,QC code - dewpoint temperature,1
+type,dewpoint_q,int
+long_name,wetb_temp_q,QC code - wetbulb temperature,1
+type,wetb_temp_q,int
+long_name,ground_state_id_q,QC code - ground state code,1
+type,ground_state_id_q,int
+long_name,cld_amt_id_1_q,QC code - layer cloud amount #1,1
+type,cld_amt_id_1_q,int
+long_name,cloud_type_id_1_q,QC code - cloud type code #1,1
+type,cloud_type_id_1_q,int
+long_name,cld_base_ht_id_1_q,QC code - cloud base height code #1,1
+type,cld_base_ht_id_1_q,int
+long_name,cld_amt_id_2_q,QC code - layer cloud amount #2,1
+type,cld_amt_id_2_q,int
+long_name,cloud_type_id_2_q,QC code - cloud type code #2,1
+type,cloud_type_id_2_q,int
+long_name,cld_base_ht_id_2_q,QC code - cloud base height code #2,1
+type,cld_base_ht_id_2_q,int
+long_name,cld_amt_id_3_q,QC code - layer cloud amount #3,1
+type,cld_amt_id_3_q,int
+long_name,cloud_type_id_3_q,QC code - cloud type code #3,1
+type,cloud_type_id_3_q,int
+long_name,cld_base_ht_id_3_q,QC code - cloud base height code #3,1
+type,cld_base_ht_id_3_q,int
+long_name,cld_amt_id_4_q,QC code - layer cloud amount #4,1
+type,cld_amt_id_4_q,int
+long_name,cloud_type_id_4_q,QC code - cloud type code #4,1
+type,cloud_type_id_4_q,int
+long_name,cld_base_ht_id_4_q,QC code - cloud base height code #4,1
+type,cld_base_ht_id_4_q,int
+long_name,vert_vsby_q,QC code - vertical visibility,1
+type,vert_vsby_q,int
+long_name,stn_pres_q,QC code - station pressure,1
+type,stn_pres_q,int
+long_name,alt_pres_q,QC code - altimiter pressure,1
+type,alt_pres_q,int
+long_name,q10mnt_mxgst_spd_q,QC code - 10 min maximum gust speed,1
+type,q10mnt_mxgst_spd_q,int
+long_name,cs_hr_sun_dur_q,QC code - campbell-stokes hour sunshine,1
+type,cs_hr_sun_dur_q,int
+long_name,wmo_hr_sun_dur_q,QC code - wmo hour sunshine,1
+type,wmo_hr_sun_dur_q,int
+long_name,snow_depth_q,QC code - snow depth,1
+type,snow_depth_q,int
+long_name,wind_direction_j,Descriptor - wind direction,1
+type,wind_direction_j,char
+long_name,wind_speed_j,Descriptor - wind speed,1
+type,wind_speed_j,char
+long_name,prst_wx_id_j,Descriptor - present weather code,1
+type,prst_wx_id_j,char
+long_name,past_wx_id_1_j,Descriptor - past weather code #1,1
+type,past_wx_id_1_j,char
+long_name,past_wx_id_2_j,Descriptor - past weather code #2,1
+type,past_wx_id_2_j,char
+long_name,cld_amt_id_j,Descriptor - cloud amount id,1
+type,cld_amt_id_j,char
+long_name,cld_ht_j,Descriptor - cloud base height ,1
+type,cld_ht_j,char
+long_name,visibility_j,Descriptor - visibility,1
+type,visibility_j,char
+long_name,msl_pressure_j,Descriptor - msl pressure,1
+type,msl_pressure_j,char
+long_name,air_temperature_j,Descriptor - air temperature,1
+type,air_temperature_j,char
+long_name,dewpoint_j,Descriptor - dewpoint temperature,1
+type,dewpoint_j,char
+long_name,wetb_temp_j,Descriptor - wetbulb temperature,1
+type,wetb_temp_j,char
+long_name,rltv_hum_j,descriptor - relative humidity,1
+type,rltv_hum_j,char
+long_name,vert_vsby_j,Descriptor - vertical visibility,1
+type,vert_vsby_j,char
+long_name,stn_pres_j,Descriptor - station pressure,1
+type,stn_pres_j,char
+long_name,alt_pres_j,Descriptor - altimiter pressure,1
+type,alt_pres_j,char
+long_name,q10mnt_mxgst_spd_j,Descriptor - 10 min maximum gust speed,1
+type,q10mnt_mxgst_spd_j,char
+long_name,meto_stmp_time,Met Office receipt stamp time,1
+type,meto_stmp_time,char
+comments,meto_stmp_time,Met Office receipt stampe time in format (YYYY-MM-DD HH:MM:SS)
+long_name,midas_stmp_etime,Elapsed time to storage in MIDAS,minutes
+type,midas_stmp_etime,int
+long_name,drv_hr_sun_dur,derived hour sunshine,hours
+type,drv_hr_sun_dur,float
+long_name,drv_hr_sun_dur_q,QC code - derived hour sunshine,hours
+type,drv_hr_sun_dur_q,float
+data
+ob_time,id,id_type,met_domain_name,version_num,src_id,rec_st_ind,wind_speed_unit_id,src_opr_type,wind_direction,wind_speed,prst_wx_id,past_wx_id_1,past_wx_id_2,cld_ttl_amt_id,low_cld_type_id,med_cld_type_id,hi_cld_type_id,cld_base_amt_id,cld_base_ht,visibility,msl_pressure,cld_amt_id_1,cloud_type_id_1,cld_base_ht_id_1,cld_amt_id_2,cloud_type_id_2,cld_base_ht_id_2,cld_amt_id_3,cloud_type_id_3,cld_base_ht_id_3,cld_amt_id_4,cloud_type_id_4,cld_base_ht_id_4,vert_vsby,air_temperature,dewpoint,wetb_temp,rltv_hum,stn_pres,alt_pres,ground_state_id,q10mnt_mxgst_spd,cavok_flag,cs_hr_sun_dur,wmo_hr_sun_dur,snow_depth,wind_direction_q,wind_speed_q,prst_wx_id_q,past_wx_id_1_q,past_wx_id_2_q,cld_ttl_amt_id_q,low_cld_type_id_q,med_cld_type_id_q,hi_cld_type_id_q,cld_base_amt_id_q,cld_base_ht_q,visibility_q,msl_pressure_q,air_temperature_q,dewpoint_q,wetb_temp_q,ground_state_id_q,cld_amt_id_1_q,cloud_type_id_1_q,cld_base_ht_id_1_q,cld_amt_id_2_q,cloud_type_id_2_q,cld_base_ht_id_2_q,cld_amt_id_3_q,cloud_type_id_3_q,cld_base_ht_id_3_q,cld_amt_id_4_q,cloud_type_id_4_q,cld_base_ht_id_4_q,vert_vsby_q,stn_pres_q,alt_pres_q,q10mnt_mxgst_spd_q,cs_hr_sun_dur_q,wmo_hr_sun_dur_q,snow_depth_q,wind_direction_j,wind_speed_j,prst_wx_id_j,past_wx_id_1_j,past_wx_id_2_j,cld_amt_id_j,cld_ht_j,visibility_j,msl_pressure_j,air_temperature_j,dewpoint_j,wetb_temp_j,rltv_hum_j,vert_vsby_j,stn_pres_j,alt_pres_j,q10mnt_mxgst_spd_j,meto_stmp_time,midas_stmp_etime,drv_hr_sun_dur,drv_hr_sun_dur_q
+2024-01-01 00:00:00,03930,WMO,SYNOP,1,62122,1011,4,6,250.0,15.0,NA,NA,NA,5,NA,NA,NA,NA,60.0,4000.0,996.4,1,NA,60.0,4,NA,84.0,NA,NA,NA,NA,NA,NA,NA,7.8,4.8,6.5,81.4,987.4,NA,NA,NA,NA,NA,0.0,NA,6,6,NA,NA,NA,6,NA,NA,NA,NA,6,6,6,6,6,6,NA,6,NA,6,6,NA,6,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2024-01-01 00:02:13,NA,0.0,1
+2024-01-01 01:00:00,03930,WMO,SYNOP,1,62122,1011,4,6,240.0,14.0,NA,NA,NA,8,NA,NA,NA,NA,60.0,4500.0,997.3,8,NA,69.0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.0,4.2,6.3,76.6,988.3,NA,NA,NA,NA,NA,0.0,NA,6,6,NA,NA,NA,6,NA,NA,NA,NA,6,6,6,6,6,6,NA,6,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2024-01-01 01:01:11,NA,0.0,1
+2024-01-01 02:00:00,03930,WMO,SYNOP,1,62122,1011,4,6,250.0,16.0,NA,NA,NA,8,NA,NA,NA,NA,60.0,5000.0,998.4,8,NA,84.0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.0,3.9,6.2,75.1,989.3,NA,NA,NA,NA,NA,0.0,NA,6,6,NA,NA,NA,6,NA,NA,NA,NA,6,6,6,6,6,6,NA,6,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2024-01-01 02:01:13,NA,0.0,1
+2024-01-01 03:00:00,03930,WMO,SYNOP,1,62122,1011,4,6,250.0,14.0,NA,NA,NA,5,NA,NA,NA,NA,60.0,2900.0,999.5,5,NA,84.0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6,4.5,6.2,80.4,990.4,NA,NA,NA,NA,NA,0.0,NA,6,6,NA,NA,NA,6,NA,NA,NA,NA,6,6,6,6,6,6,NA,6,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2024-01-01 03:01:11,NA,0.0,1
+2024-01-01 04:00:00,03930,WMO,SYNOP,1,62122,1011,4,6,250.0,12.0,NA,NA,NA,3,NA,NA,NA,NA,60.0,2700.0,1000.3,1,NA,84.0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4,3.9,5.9,78.5,991.2,NA,NA,NA,NA,NA,0.0,NA,6,6,NA,NA,NA,6,NA,NA,NA,NA,6,6,6,6,6,6,NA,6,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2024-01-01 04:01:08,NA,0.0,1
+end data

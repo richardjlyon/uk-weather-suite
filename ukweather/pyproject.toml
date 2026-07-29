@@ -1,0 +1,29 @@
+[project]
+name = "ukweather"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Richard Lyon", email = "6917342+richardjlyon@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "planetary-computer>=1.0.0",
+    "pyarrow>=25.0.0",
+    "pyproj>=3.7.2",
+    "pystac-client>=0.9.0",
+    "rasterio>=1.5.0",
+    "shapely>=2.1.2",
+]
+
+[project.scripts]
+ukweather = "ukweather:main"
+
+[build-system]
+requires = ["uv_build>=0.9.28,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

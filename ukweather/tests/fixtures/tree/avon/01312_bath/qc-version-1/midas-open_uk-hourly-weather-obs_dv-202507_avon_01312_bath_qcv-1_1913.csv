@@ -1,0 +1,60 @@
+Conventions,G,BADC-CSV,1
+title,G,uk-hourly-weather-obs
+source,G,Met Office MIDAS database
+creator,G,Met Office
+activity,G,Met Office MIDAS Open: UK Land Surface Stations Data
+feature_type,G,point series
+collection_name,G,midas-open
+collection_version_number,G,dataset-version-202507
+history,G,Created 2025-06-24
+last_revised_date,G,2025-06-24
+observation_station,G,bath
+historic_county_name,G,avon
+authority,G,Met Office
+authority_comments,G,The authority is the latest organisation which owned the station
+authority_comments,G,Closed stations without an authority listed have the authority set to NA
+midas_station_id,G,01312
+location,G,51.386,-2.355
+height,G,20,m
+date_valid,G,1913-01-01 00:00:00,1913-12-31 23:59:59
+midas_qc_version_number,G,1
+comments,G,The midas_qc_version_number indicates if the data are original received message (0) or current best version (1)
+comments,G,This file contains station observations
+comments,G,missing values are identified with the missing data flag
+missing_value,G,NA
+coordinate_variable,ob_time,t
+long_name,ob_time,Date and time of observation,s
+type,ob_time,char
+comments,ob_time,Date and time (YYYY-MM-DD HH:MM:SS) of the observation
+long_name,id,station identifier,1
+type,id,char
+comments,id,a station may have more than one id assigned to it designated by the id_type
+long_name,id_type,identifier type,1
+type,id_type,char
+comments,id_type,a station may have more than one id assigned to it defined by id_type
+long_name,met_domain_name,message type,1
+type,met_domain_name,char
+comments,met_domain_name,message type (see MIDAS documentation)
+long_name,version_num,midas qc version number,1
+type,version_num,int
+comments,version_num,The midas_qc_version_number indicates if the data are original received message (0) or current best version (1)
+long_name,src_id,unique source identifier or station site number,1
+type,src_id,int
+comments,src_id,unique source identifier or station site number
+long_name,rec_st_ind,state indicator for the record,1
+type,rec_st_ind,int
+comments,rec_st_ind,state indicator for the current stage in the life of the record (see MIDAS documentation)
+long_name,wind_speed_unit_id,Wind speed unit code,1
+type,wind_speed_unit_id,char
+comments,wind_speed_unit_id,Code to describe the origin of the wind speed units.
+comments,wind_speed_unit_id,"0=wind speed estimated,metres per second"
+comments,wind_speed_unit_id,"1=wind speed from anemometer,metres per second"
+comments,wind_speed_unit_id,"3=wind speed estimated,knots"
+comments,wind_speed_unit_id,"4=wind speed from anemometer,knots"
+long_name,src_opr_type,source operation type code,1
+type,src_opr_type,char
+comments,src_opr_type,source operation type code
+long_name,wind_direction,wind direction,deg true
+type,wind_direction,int
+comments,wind_direction,wind direction in true degrees
+long_name,wind_speed,wind speed,knots

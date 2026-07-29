@@ -1,0 +1,7 @@
+data/
+target/
+.venv/
+__pycache__/
+*.parquet
+.DS_Store
+.secrets/

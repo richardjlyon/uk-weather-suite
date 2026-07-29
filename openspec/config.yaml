@@ -1,0 +1,50 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+context: |
+  UK Weather Suite: assemble UK weather station data (Met Office MIDAS Open
+  via CEDA) and give every station a time-varying urban/rural classification
+  (GHSL built-up surface + UKCEH Land Cover Maps) to support urban-heat-effect
+  analysis of the temperature record.
+
+  Tech stack:
+  - midas-fetch/: Rust 2024 (tokio, reqwest, clap). Handles CEDA crawl,
+    auth (Keychain-held token/credentials), concurrent downloads, and
+    BADC-CSV -> Parquet parsing. Rust is used wherever parallelism pays.
+  - ukweather/: Python >=3.13 managed with uv only. Land-cover extraction
+    and analysis.
+  - Data flows: raw BADC-CSV under data/ (gitignored, re-downloadable from
+    CEDA); Parquet is the durable derivative, backed up to the UNAS.
+
+  Conventions:
+  - TDD (red/green/refactor) for parsing and analysis logic; fixtures cut
+    from real archive files under tests/fixtures/.
+  - Development is driven by OpenSpec validated changes; no substantive
+    work outside a change.
+  - Secrets live in the macOS Keychain (services: ceda-token,
+    ceda-credentials); never in the repo or environment files.
+  - British English in docs and prose.
+
+rules:
+  proposal:
+    - Include a "Non-goals" section
+  tasks:
+    - Order tasks red/green/refactor where the work is testable logic

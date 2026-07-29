@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UK Weather Suite — the network, and what grew around it</title>
+<style>
+:root{
+  --ink:#e9e6df; --dim:#8b8578; --faint:#4a463e;
+  --bg:#0d0f10; --panel:#141719; --line:#23272a;
+  --rural:#3fb8a0; --mid:#e0b341; --urban:#e0533d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);
+  -webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+.wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+
+header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(28px,4.4vw,52px);font-weight:400;letter-spacing:-.02em;line-height:1.08}
+h1 em{font-style:italic;color:var(--mid)}
+.sub{margin-top:14px;max-width:60ch;color:var(--dim);font-size:17px}
+.meta{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.stat{background:var(--bg);padding:26px 20px}
+.stat b{display:block;font-family:var(--mono);font-size:clamp(22px,2.6vw,34px);
+  font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.stat span{display:block;margin-top:6px;font-size:12px;color:var(--dim);
+  letter-spacing:.04em}
+
+.stage{display:grid;grid-template-columns:1fr 320px;gap:0;
+  border-bottom:1px solid var(--line);min-height:640px}
+@media(max-width:900px){.stage{grid-template-columns:1fr}}
+.mapwrap{position:relative;padding:28px 0 20px;border-right:1px solid var(--line)}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.dot{transition:fill .9s cubic-bezier(.4,0,.2,1),r .9s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;stroke:rgba(0,0,0,.55);stroke-width:.35}
+.dot:hover{stroke:#fff;stroke-width:1.2}
+
+.controls{position:absolute;left:0;top:28px;display:flex;flex-direction:column;gap:10px;z-index:5}
+.epoch{display:flex;gap:0;border:1px solid var(--line);border-radius:2px;overflow:hidden;width:max-content}
+.epoch button{background:transparent;border:0;color:var(--dim);font-family:var(--mono);
+  font-size:11px;letter-spacing:.14em;padding:9px 16px;cursor:pointer;transition:.2s}
+.epoch button:hover{color:var(--ink)}
+.epoch button.on{background:var(--ink);color:var(--bg)}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--faint)}
+
+.panel{padding:28px 24px;display:flex;flex-direction:column;gap:26px}
+.pt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:12px}
+.legend div{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--dim);
+  margin-bottom:7px}
+.sw{width:13px;height:13px;border-radius:50%;flex:none}
+
+.readout{min-height:150px;border-left:2px solid var(--line);padding-left:14px}
+.readout .nm{font-size:19px;letter-spacing:-.01em;line-height:1.2}
+.readout .cy{color:var(--dim);font-size:13px;font-style:italic;margin-top:2px}
+.readout dl{margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.readout dl div{display:flex;justify-content:space-between;padding:4px 0;
+  border-bottom:1px solid var(--line)}
+.readout dd{color:var(--ink)}
+.readout .empty{color:var(--faint);font-style:italic;font-size:14px}
+
+.movers li{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:13px;
+  padding:6px 0;border-bottom:1px solid var(--line);list-style:none;cursor:pointer}
+.movers li:hover .lbl{color:var(--mid)}
+.lbl{color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:.15s}
+.delta{font-family:var(--mono);font-size:11px;color:var(--urban)}
+
+section.chart{padding:56px 0;border-bottom:1px solid var(--line)}
+h2{font-size:24px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.lede{color:var(--dim);max-width:64ch;font-size:16px;margin-bottom:32px}
+.bars{display:flex;align-items:flex-end;gap:3px;height:190px}
+.bar{flex:1;background:linear-gradient(180deg,var(--rural),rgba(63,184,160,.15));
+  position:relative;min-height:2px;transition:.2s}
+.bar:hover{background:linear-gradient(180deg,var(--mid),rgba(224,179,65,.2))}
+.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:9px;color:var(--faint);white-space:nowrap}
+.bar b{position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--dim);opacity:0;transition:.2s}
+.bar:hover b{opacity:1}
+.axis{margin-top:34px;font-family:var(--mono);font-size:10px;color:var(--faint);
+  display:flex;justify-content:space-between;letter-spacing:.1em}
+
+.scatter{position:relative}
+.sc-note{position:absolute;font-family:var(--mono);font-size:10px;color:var(--faint);
+  letter-spacing:.08em}
+
+footer{padding:44px 0 70px;color:var(--faint);font-size:13px;max-width:70ch}
+footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <h1>1,537 thermometers,<br>and <em>what grew around them</em></h1>
+  <p class="sub">Every Met Office weather station with an hourly record, placed by its own
+  coordinates, coloured by how built-up its surroundings were. Move between 1975 and 2020
+  and watch the countryside fill in.</p>
+  <p class="meta">MIDAS Open v202507 · GHSL built-up surface · 2&nbsp;km ring</p>
+</div></header>
+
+<div class="stats wrap" id="stats"></div>
+
+<div class="stage">
+  <div class="mapwrap">
+    <div class="controls wrap" style="padding-left:24px">
+      <div class="epoch">
+        <button data-e="75" class="on">1975</button>
+        <button data-e="20">2020</button>
+      </div>
+      <div class="hint">hover a station</div>
+    </div>
+    <svg id="map" viewBox="0 0 620 760" aria-label="Map of UK weather stations"></svg>
+  </div>
+
+  <aside class="panel">
+    <div>
+      <div class="pt">Built-up fraction, 2 km ring</div>
+      <div class="legend">
+        <div><i class="sw" style="background:var(--rural)"></i> under 2% — open country</div>
+        <div><i class="sw" style="background:var(--mid)"></i> 2–15% — village, edge of town</div>
+        <div><i class="sw" style="background:var(--urban)"></i> over 15% — town, city</div>
+      </div>
+      <div class="hint" style="margin-top:10px">dot size = length of record</div>
+    </div>
+
+    <div>
+      <div class="pt">Station</div>
+      <div class="readout" id="readout"><p class="empty">Nothing selected.</p></div>
+    </div>
+
+    <div>
+      <div class="pt">Grew the most, 1975→2020</div>
+      <ul class="movers" id="movers"></ul>
+    </div>
+  </aside>
+</div>
+
+<section class="chart"><div class="wrap">
+  <h2>The record is not evenly deep</h2>
+  <p class="lede">Hourly observations by decade. The archive reaches back to the 1870s, but
+  the modern network — and the automation that came with it — is a creature of the last
+  forty years. Any claim about long-run change lives or dies on the thin left-hand end.</p>
+  <div class="bars" id="bars"></div>
+  <div class="axis"><span id="ax0"></span><span>observations per decade</span><span id="ax1"></span></div>
+</div></section>
+
+<section class="chart"><div class="wrap">
+  <h2>Who changed, and who did not</h2>
+  <p class="lede">Each station twice over: its surroundings in 1975 against 2020. Points on
+  the diagonal did not change. Points above it were built around — and those are the
+  stations whose thermometers may be reading the town rather than the weather. The cluster
+  hugging the origin is the control group this project needs.</p>
+  <div class="scatter">
+    <svg id="scatter" viewBox="0 0 900 460"></svg>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>Built from the project's own Parquet tables — station coordinates and record spans from
+  the MIDAS capability files, built-up fractions computed as area-weighted, land-masked
+  rings over the JRC's GHSL surface. Colours are descriptive only: the classification that
+  will decide urban from rural is pre-registered, calibrated and deposited separately, and
+  nothing here has been through it.</p>
+</div></footer>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const fmt=n=>n.toLocaleString('en-GB');
+
+fetch('data.json').then(r=>r.json()).then(init);
+
+function init(D){
+  const S=D.s.map(a=>({id:a[0],name:a[1],county:a[2],lat:a[3],lon:a[4],alt:a[5],
+                       fy:a[6],ly:a[7],b75:a[8],b20:a[9]}));
+  const both=S.filter(s=>s.b75!=null&&s.b20!=null);
+
+  // ---- headline stats ----
+  const rural=both.filter(s=>s.b20<0.02).length;
+  const longr=S.filter(s=>s.ly&&s.fy&&s.ly-s.fy>=50).length;
+  const stats=[[fmt(S.length),'stations mapped'],
+               ['96.2M','hourly observations'],
+               [fmt(rural),'still under 2% built in 2020'],
+               [fmt(longr),'records of 50 years or more'],
+               ['1875–2024','span of the archive']];
+  $('#stats').innerHTML=stats.map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
+
+  // ---- colour + geometry ----
+  const col=v=>v==null?'#3a3f42':v<0.02?'#3fb8a0':v<0.05?'#79b878':v<0.15?'#e0b341':v<0.30?'#e0803d':'#e0533d';
+  const lats=S.map(s=>s.lat),lons=S.map(s=>s.lon);
+  const la0=Math.min(...lats),la1=Math.max(...lats),lo0=Math.min(...lons),lo1=Math.max(...lons);
+  const W=620,H=760,P=26;
+  const k=Math.cos((la0+la1)/2*Math.PI/180);           // flatten longitude by latitude
+  const sx=(W-2*P)/((lo1-lo0)*k), sy=(H-2*P)/(la1-la0);
+  const sc=Math.min(sx,sy);
+  const ox=(W-((lo1-lo0)*k*sc))/2, oy=(H-((la1-la0)*sc))/2;
+  const px=s=>ox+(s.lon-lo0)*k*sc, py=s=>H-oy-(s.lat-la0)*sc;
+  const rad=s=>{const y=(s.ly&&s.fy)?s.ly-s.fy:5;return 1.5+Math.min(y,90)/90*3.4};
+
+  const map=$('#map');
+  map.innerHTML=S.map((s,i)=>
+    `<circle class="dot" data-i="${i}" cx="${px(s).toFixed(1)}" cy="${py(s).toFixed(1)}"
+      r="${rad(s).toFixed(2)}" fill="${col(s.b75)}"/>`).join('');
+
+  // ---- readout ----
+  const ro=$('#readout');
+  const show=s=>{
+    const yrs=(s.fy&&s.ly)?`${s.fy}–${s.ly}`:'—';
+    const pc=v=>v==null?'—':(v*100).toFixed(1)+'%';
+    const grew=(s.b75!=null&&s.b20!=null)?((s.b20-s.b75)*100).toFixed(1)+' pts':'—';
+    ro.innerHTML=`<p class="nm">${s.name.replace(/-/g,' ')}</p>
+      <p class="cy">${s.county.replace(/-/g,' ')}</p>
+      <dl>
+        <div><dt>record</dt><dd>${yrs}</dd></div>
+        <div><dt>altitude</dt><dd>${s.alt!=null?s.alt+' m':'—'}</dd></div>
+        <div><dt>built 1975</dt><dd>${pc(s.b75)}</dd></div>
+        <div><dt>built 2020</dt><dd>${pc(s.b20)}</dd></div>
+        <div><dt>change</dt><dd>${grew}</dd></div>
+      </dl>`;
+  };
+  map.addEventListener('mouseover',e=>{
+    const c=e.target.closest('.dot'); if(c) show(S[+c.dataset.i]);
+  });
+
+  // ---- epoch toggle ----
+  let epoch='75';
+  document.querySelectorAll('.epoch button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.epoch button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); epoch=b.dataset.e;
+    document.querySelectorAll('.dot').forEach(c=>{
+      const s=S[+c.dataset.i];
+      c.setAttribute('fill',col(epoch==='75'?s.b75:s.b20));
+    });
+  });
+
+  // ---- biggest movers ----
+  const movers=[...both].sort((a,b)=>(b.b20-b.b75)-(a.b20-a.b75)).slice(0,7);
+  $('#movers').innerHTML=movers.map(s=>
+    `<li data-id="${s.id}"><span class="lbl">${s.name.replace(/-/g,' ')}</span>
+     <span class="delta">+${((s.b20-s.b75)*100).toFixed(1)}</span></li>`).join('');
+  $('#movers').addEventListener('mouseover',e=>{
+    const li=e.target.closest('li'); if(!li)return;
+    const s=S.find(x=>x.id===li.dataset.id); if(s)show(s);
+  });
+
+  // ---- decade bars ----
+  const D2=D.d, mx=Math.max(...D2.map(r=>r[1]));
+  $('#bars').innerHTML=D2.map(([dec,n,st])=>
+    `<div class="bar" style="height:${Math.max(2,n/mx*100)}%">
+      <b>${fmt(n)} obs · ${st} stations</b><span>${String(dec).slice(2)}</span></div>`).join('');
+  $('#ax0').textContent=D2[0][0]+'s'; $('#ax1').textContent=D2[D2.length-1][0]+'s';
+
+  // ---- scatter: 1975 vs 2020 ----
+  const sw=900,sh=460,sp=52, cap=0.45;
+  const X=v=>sp+Math.min(v,cap)/cap*(sw-sp-30);
+  const Y=v=>sh-sp-Math.min(v,cap)/cap*(sh-sp-30);
+  let g=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(cap)}" y2="${Y(cap)}"
+          stroke="#2f3437" stroke-dasharray="4 4"/>`;
+  g+=`<line x1="${sp}" y1="${sh-sp}" x2="${sw-20}" y2="${sh-sp}" stroke="#23272a"/>`;
+  g+=`<line x1="${sp}" y1="20" x2="${sp}" y2="${sh-sp}" stroke="#23272a"/>`;
+  [0,.1,.2,.3,.4].forEach(t=>{
+    g+=`<text x="${X(t)}" y="${sh-sp+18}" fill="#4a463e" font-size="10"
+         font-family="ui-monospace,monospace" text-anchor="middle">${(t*100)|0}%</text>`;
+    g+=`<text x="${sp-10}" y="${Y(t)+3}" fill="#4a463e" font-size="10"
+         font-family="ui-monospace,monospace" text-anchor="end">${(t*100)|0}%</text>`;
+  });
+  g+=both.map(s=>{
+    const grew=s.b20-s.b75;
+    const c=grew>0.03?'#e0533d':grew>0.01?'#e0b341':'#3fb8a0';
+    return `<circle cx="${X(s.b75).toFixed(1)}" cy="${Y(s.b20).toFixed(1)}" r="2.4"
+      fill="${c}" fill-opacity=".72"><title>${s.name.replace(/-/g,' ')}: ${(s.b75*100).toFixed(1)}% → ${(s.b20*100).toFixed(1)}%</title></circle>`;
+  }).join('');
+  g+=`<text x="${sw-30}" y="${sh-sp+38}" fill="#8b8578" font-size="12" text-anchor="end"
+       font-style="italic">built-up fraction in 1975 →</text>`;
+  g+=`<text x="${sp-14}" y="34" fill="#8b8578" font-size="12" text-anchor="end"
+       font-style="italic" transform="rotate(-90 ${sp-14} 34)">2020 →</text>`;
+  $('#scatter').innerHTML=g;
+}
+</script>
+</body>
+</html>
